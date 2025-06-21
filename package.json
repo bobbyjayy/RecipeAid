@@ -1,0 +1,5 @@
+{
+  "name": "recipeaid",
+  "private": true,
+  "workspaces": ["packages/*"]
+}
