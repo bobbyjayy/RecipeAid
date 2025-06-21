@@ -25,12 +25,14 @@ RecipeAid is a full-stack web application that suggests complete three-course me
 ### Installation
 
 1. **Clone the repository:**
+
    ```sh
    git clone https://github.com/bobbyjayy/RecipeAid.git
    cd RecipeAid
    ```
 
 2. **Install dependencies for both frontend and backend:**
+
    ```sh
    cd packages/backend
    npm install
@@ -44,12 +46,14 @@ RecipeAid is a full-stack web application that suggests complete three-course me
 ### Running the App
 
 **Backend:**
+
 ```sh
 cd packages/backend
 npm run dev
 ```
 
 **Frontend:**
+
 ```sh
 cd packages/frontend
 npm run dev
