@@ -14,4 +14,11 @@ export async function suggestMeal({
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ ingredients, cuisine, servings, mealTime }),
   });
+
+  if (!res.ok) {
+    throw new Error(await res.text());
+  }
+
+  const aiMeal = await res.json();
+  return aiMeal;
 }
