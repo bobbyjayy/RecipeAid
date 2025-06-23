@@ -9,9 +9,14 @@ export async function suggestMeal({
   servings: number;
   mealTime: string;
 }) {
+  const token = localStorage.getItem("token");
+
   const res = await fetch("/api/recipes/suggest", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({ ingredients, cuisine, servings, mealTime }),
   });
 
