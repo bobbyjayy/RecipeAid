@@ -1,11 +1,12 @@
-import { getMealSuggestion } from "../gateways/openaiGateway";
+import { OpenAIGateway } from "../interfaces/OpenAIGateway";
 import { Meal } from "../entities/Recipe";
 
 export async function suggestMeal(
   ingredients: string[],
   cuisine: string,
   servings: number,
-  mealTime: string
+  mealTime: string,
+  openai: OpenAIGateway
 ): Promise<Meal> {
   const list = ingredients.map((i) => `- ${i}`).join("\n");
   const prompt = `
@@ -28,7 +29,7 @@ Output a JSON array of objects with keys:
   Respond ONLY with the JSON array. Do NOT include any Markdown formatting, asterisks, or code blocks. Do not use * or ** for emphasis.
   `;
 
-  const text = await getMealSuggestion(prompt);
+  const text = await openai.getMealSuggestion(prompt);
   //   console.log("typeof text:", typeof text);
   //   console.log("text content:", JSON.stringify(text));
   console.log("AI raw response:", text);
