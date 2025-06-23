@@ -3,8 +3,11 @@ import { ZodSchema } from "zod";
 
 export function validateBody(schema: ZodSchema) {
   return (req: Request, res: Response, next: NextFunction) => {
+    // check req.body with the ZodSchema and clean data
     const result = schema.safeParse(req.body);
 
+    // if return false then error, map through the
+    // different paths(e.g. error at email or error at password)
     if (!result.success) {
       res.status(400).json({
         error: "Validation failed",
@@ -16,7 +19,7 @@ export function validateBody(schema: ZodSchema) {
       return;
     }
 
-    // Replace body with parsed data
+    // Replace body with cleaned data checked by zod
     req.body = result.data;
     next();
   };

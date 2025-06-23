@@ -8,6 +8,7 @@ import { authSchema } from "../schemas/authSchemas";
 
 const router = Router();
 
+// make sure to add zod middleware to check the email and password etc.
 router.post("/register", validateBody(authSchema), registerController);
 router.post("/login", validateBody(authSchema), loginController);
 
