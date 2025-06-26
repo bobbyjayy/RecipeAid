@@ -3,26 +3,20 @@ import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MealBuilder from "./pages/MealBuilder";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Homepage from "./pages/Homepage";
 
 function App() {
   const location = useLocation();
 
-  const hideNavbarRoutes = ["/login", "/register"];
+  const hideNavbarRoutes = ["/", "/login", "/register"];
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
   return (
     <>
       {!shouldHideNavbar && <Navbar />}
       <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <MealBuilder />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/" element={<Homepage />} />
+        <Route path="/mealbuilder" element={<MealBuilder />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

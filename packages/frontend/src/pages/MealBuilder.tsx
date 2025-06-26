@@ -14,6 +14,8 @@ function MealBuilder() {
   const [servings, setServings] = useState<number>(2);
   const [mealTime, setMealTime] = useState<string>("Breakfast");
 
+  const [error, setError] = useState<string | null>(null);
+
   const addIngredient = () => {
     const trimmed = input.trim();
     if (trimmed && !ingredients.includes(trimmed)) {
@@ -39,13 +41,26 @@ function MealBuilder() {
   };
 
   const handleSuggestMeal = async () => {
-    const meal = await suggestMeal({
-      ingredients,
-      cuisine,
-      servings,
-      mealTime,
-    });
-    setSuggestion(meal);
+    setError(null);
+
+    try {
+      const meal = await suggestMeal({
+        ingredients,
+        cuisine,
+        servings,
+        mealTime,
+      });
+      setSuggestion(meal);
+    } catch (err: any) {
+      let msg = "Failed to get meal suggestion.";
+      try {
+        const parsed = JSON.parse(err.message);
+        msg = parsed.error || msg;
+      } catch {
+        msg = err.message || msg;
+      }
+      setError(msg);
+    }
   };
 
   return (
@@ -77,6 +92,8 @@ function MealBuilder() {
       >
         Suggest a Meal
       </button>
+
+      {error && <div className="mb-4 text-red-600 font-semibold">{error}</div>}
 
       <MealSuggestion suggestion={suggestion} />
     </div>

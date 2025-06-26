@@ -17,7 +17,7 @@ export default function Login() {
       const data = await login(email, password);
       localStorage.setItem("token", data.token);
       // redirect to main page
-      navigate("/");
+      navigate("/mealbuilder");
     } catch (err) {
       setError("Nework error");
     }
